@@ -38,6 +38,7 @@ def get_vector_store(text_chunks):
 
     vector_store = FAISS.from_texts(text_chunks, embedding=emb)
     vector_store.save_local("faiss_index")
+    #make sure to check cwd as faiss_index gets created in it
 
 
 def get_conversational_chain():
@@ -64,7 +65,7 @@ def user_input(user_question):
     model_id = "llama3.1"
     # model_id = ChatGroq(temperature=0, groq_api_key=os.getenv("GROQ_API_KEY"), model_name="llama-3.1-70b-versatile")
     emb = OllamaEmbeddings(model=model_id)
-    
+    #make sure to check cwd as faiss_index gets created in it
     new_db = FAISS.load_local("faiss_index", emb, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
 
